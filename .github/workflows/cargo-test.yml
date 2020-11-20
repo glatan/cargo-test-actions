@@ -35,10 +35,7 @@ jobs:
       - name: Install packages(Windows)
         if: runner.os == 'Windows' && matrix.packages
         run: |
-          ls C:\\msys64\\mingw64\\bin
-          ls C:\\msys64\\usr\\bin
-          echo 'C:\\msys64\\mingw64\\bin' >> $GITHUB_PATH
-          pacman -Sy
-          pacman --noconfirm -S ${{ matrix.packages }}
+          C:\\msys64\\usr\\bin\\pacman -Sy
+          C:\\msys64\\usr\\bin\\pacman --noconfirm -S ${{ matrix.packages }}
       - name: cargo test
         run: cargo test --target ${{ matrix.target }}
