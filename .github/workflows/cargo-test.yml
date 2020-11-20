@@ -8,4 +8,5 @@ jobs:
         os: ["windows-2019", "macos-11.0", "macos-10.15"]
     steps:
       - uses: actions/checkout@v2
+      - run: rustup target list
       - run: cargo test
