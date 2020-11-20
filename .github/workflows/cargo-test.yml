@@ -1,12 +1,24 @@
 name: cargo-test
 on: [push]
 jobs:
-  check-bats-version:
+  test:
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: ["windows-2019", "macos-11.0", "macos-10.15"]
+        include:
+          - name: x86_64-pc-windows-msvc(Windows Server 2019)
+            target: x86_64-pc-windows-msvc
+            os: windows-2019
+          - name: x86_64-apple-darwin(macOS Big Sur 11.0)
+            target: x86_64-apple-darwin
+            os: macos-11.0
+          - name: x86_64-apple-darwin(macOS Catalina 10.15)
+            target: x86_64-apple-darwin
+            os: macos-10.15
     steps:
-      - uses: actions/checkout@v2
-      - run: rustup target list
-      - run: cargo test
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: cargo test
+        run: cargo test --target ${{ matrix.target }}
