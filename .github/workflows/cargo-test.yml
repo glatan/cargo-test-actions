@@ -13,7 +13,7 @@ jobs:
             os: windows-2019
           - name: i686-pc-windows-gnu(Windows Server 2019)
             target: i686-pc-windows-gnu
-            packages: i686-w64-mingw32-gcc
+            packages: mingw-w64-i686-gcc
             os: windows-2019
           - name: x86_64-pc-windows-msvc(Windows Server 2019)
             target: x86_64-pc-windows-msvc
@@ -35,7 +35,7 @@ jobs:
       - name: Install packages(Windows)
         if: runner.os == 'Windows' && matrix.packages
         run: |
-          mingw-get update
-          mingw-get install ${{ matrix.packages }}
+          pacman -Syy
+          pacman -S ${{ matrix.packages }}
       - name: cargo test
         run: cargo test --target ${{ matrix.target }}
