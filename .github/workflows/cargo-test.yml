@@ -11,6 +11,9 @@ jobs:
           - name: x86_64-pc-windows-msvc(Windows Server 2019)
             target: x86_64-pc-windows-msvc
             os: windows-2019
+          - name: x86_64-pc-windows-gnu(Windows Server 2019)
+            target: x86_64-pc-windows-gnu
+            os: windows-2019
           - name: x86_64-apple-darwin(macOS Big Sur 11.0)
             target: x86_64-apple-darwin
             os: macos-11.0
@@ -20,5 +23,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Add target
+        run: rustup target add ${{ matrix.target }}
       - name: cargo test
         run: cargo test --target ${{ matrix.target }}
