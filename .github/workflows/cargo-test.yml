@@ -8,6 +8,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - name: i686-pc-windows-msvc(Windows Server 2019)
+            target: i686-pc-windows-msvc
+            os: windows-2019
+          - name: i686-pc-windows-gnu(Windows Server 2019)
+            target: i686-pc-windows-gnu
+            os: windows-2019
           - name: x86_64-pc-windows-msvc(Windows Server 2019)
             target: x86_64-pc-windows-msvc
             os: windows-2019
