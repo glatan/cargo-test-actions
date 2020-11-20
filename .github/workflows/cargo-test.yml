@@ -35,6 +35,7 @@ jobs:
       - name: Install packages(Windows)
         if: runner.os == 'Windows' && matrix.packages
         run: |
+          $ENV:Path+="C:\msys64;"
           pacman -Syy
           pacman -S ${{ matrix.packages }}
       - name: cargo test
