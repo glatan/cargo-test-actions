@@ -8,35 +8,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: i686-pc-windows-msvc(Windows Server 2019)
-            target: i686-pc-windows-msvc
-            os: windows-2019
-          - name: i686-pc-windows-gnu(Windows Server 2019)
-            target: i686-pc-windows-gnu
-            packages: mingw-w64-i686-gcc
-            os: windows-2019
-          - name: x86_64-pc-windows-msvc(Windows Server 2019)
-            target: x86_64-pc-windows-msvc
-            os: windows-2019
-          - name: x86_64-pc-windows-gnu(Windows Server 2019)
-            target: x86_64-pc-windows-gnu
-            os: windows-2019
           - name: x86_64-apple-darwin(macOS Big Sur 11.0)
-            target: x86_64-apple-darwin
             os: macos-11.0
           - name: x86_64-apple-darwin(macOS Catalina 10.15)
-            target: x86_64-apple-darwin
             os: macos-10.15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Add target
-        run: rustup target add ${{ matrix.target }}
-      - name: Install packages(Windows)
-        if: runner.os == 'Windows' && matrix.packages
-        run: |
-          $ENV:Path+='C:\\msys64\\usr\\bin;'
-          pacman -Syy
-          pacman --noconfirm -S ${{ matrix.packages }}
       - name: cargo test
-        run: cargo test --target ${{ matrix.target }}
+        run: cargo test
