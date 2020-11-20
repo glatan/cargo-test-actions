@@ -1,0 +1,19 @@
+name: cargo-test
+on: [push]
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: x86_64-apple-darwin(macOS Big Sur 11.0)
+            os: macos-11.0
+          - name: x86_64-apple-darwin(macOS Catalina 10.15)
+            os: macos-10.15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: cargo test
+        run: cargo test
